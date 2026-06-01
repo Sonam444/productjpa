@@ -30,6 +30,8 @@ public class ProductService {
             File saveFile = new File(uploadDir + fileName);
             try {
                 imageFile.transferTo(saveFile);
+
+
             } catch (IOException e) {
                 throw new RuntimeException("Image upload failed", e);
             }
@@ -41,5 +43,10 @@ public class ProductService {
     public List<Product> findProduct(String name) {
        List<Product> list = productRepository.findAllByNameContaining(name);
        return list;
+    }
+
+    public Product findById(long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found: " + id));
     }
 }
